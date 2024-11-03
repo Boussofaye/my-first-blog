@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Commandes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .navbar-custom {
+                background-color: #007bff;
+                padding: 15px;
+                border-radius: 8px;
+                margin-bottom: 20px;
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .navbar-custom .btn { background-color: #fff; color: #007bff; font-weight: bold; border: none; }
+    </style>
+</head>
+<body>
+    <nav class="navbar-custom">
+        <a href="{% url 'index' %}" class="btn"><i class="fas fa-arrow-left"></i> Retour</a>
+    </nav>
+    <div class="container mt-5">
+        <h1 class="mb-4">Liste des Commandes</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom et Prénom</th>
+                    <th>Adresse</th>
+                    <th>Téléphone</th>
+                    <th>Produit</th>
+                    <th>Prix</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                  <!-- En-tête avec boutons et icônes -->
+     
+                {% for commande in commandes %}
+                <tr>
+                    <td>{{ commande.utilisateur.userprofile.nom_prenom }}</td>
+                    <td>{{ commande.utilisateur.userprofile.adresse_rue }}</td>
+                    <td>{{ commande.utilisateur.userprofile.numero_telephone }}</td>
+                    <td>{{ commande.produit }}</td>
+                    <td>{{ commande.prix }} F</td>
+                    <td>
+                        <form action="{% url 'supprimer_commande' commande.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6">Aucune commande trouvée.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Résumé de la Commande</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    .navbar-custom {
+            background-color: #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar-custom .btn { background-color: #fff; color: #007bff; font-weight: bold; border: none; }
+</style>
+</head>
+<body>
+     <!-- En-tête avec boutons et icônes -->
+     <nav class="navbar-custom">
+        <a href="{% url 'acceuil' %}" class="btn"><i class="fas fa-arrow-left"></i> Retour</a>
+    </nav>
+<div class="container my-5">
+    <h2 class="mb-4">Résumé de votre commande</h2>
+    <table class="table table-bordered">
+        <tr><th>Nom d'utilisateur</th><td>{{ commande.utilisateur.username }}</td></tr>
+        <tr><th>Nom et Prénom</th><td>{{ user_profile.nom_prenom }}</td></tr>
+        <tr><th>Adresse</th><td>{{ user_profile.adresse_rue }}</td></tr>
+        <tr><th>Téléphone</th><td>{{ user_profile.numero_telephone }}</td></tr>
+        <tr><th>Produit commandé</th><td>{{ commande.produit }}</td></tr>
+        <tr><th>Prix</th><td>{{ commande.prix }} F</td></tr>
+    </table>
+</div>
+</body>
+</html>

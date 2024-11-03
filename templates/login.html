@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        .navbar-custom {
+            background-color: #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar-custom .btn { background-color: #fff; color: #007bff; font-weight: bold; border: none; }
+    </style>
+</head>
+<body>
+    <nav class="navbar-custom">
+        <a href="{% url 'index' %}" class="btn"><i class="fas fa-arrow-left"></i> Retour</a>
+    </nav>
+<div class="container mt-5">
+    <form method="post" class="border p-4 rounded bg-light shadow">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                <label for="id_{{ field.name }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <div class="text-danger">{{ field.errors|join:", " }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-success btn-block">Se connecter</button>
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
